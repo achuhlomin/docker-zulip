@@ -231,6 +231,7 @@ databaseConfiguration() {
     setConfigurationValue "REMOTE_POSTGRES_HOST" "$DB_HOST" "$SETTINGS_PY" "string"
     setConfigurationValue "REMOTE_POSTGRES_PORT" "$DB_HOST_PORT" "$SETTINGS_PY" "string"
     setConfigurationValue "REMOTE_POSTGRES_SSLMODE" "$REMOTE_POSTGRES_SSLMODE" "$SETTINGS_PY" "string"
+    crudini --set /etc/zulip/zulip.conf postgresql missing_dictionaries "$POSTGRESQL_MISSING_DICTIONARIES"
     # The password will be set in secretsConfiguration
     echo "Database configuration succeeded."
 }
