@@ -28,6 +28,7 @@ fi
 # Nginx settings
 DISABLE_HTTPS="${DISABLE_HTTPS:-false}"
 NGINX_WORKERS="${NGINX_WORKERS:-2}"
+NGINX_MULTI_ACCEPT="${NGINX_MULTI_ACCEPT:-off}"
 NGINX_PROXY_BUFFERING="${NGINX_PROXY_BUFFERING:-off}"
 NGINX_MAX_UPLOAD_SIZE="${NGINX_MAX_UPLOAD_SIZE:-24m}"
 # Zulip certifcate parameters
@@ -127,6 +128,7 @@ nginxConfiguration() {
         /home/zulip/deployments/current/scripts/zulip-puppet-apply -f
     fi
     sed -i "s/worker_processes .*/worker_processes $NGINX_WORKERS;/g" /etc/nginx/nginx.conf
+    sed -i "s/multi_accept .*/multi_accept $NGINX_MULTI_ACCEPT;/g" /etc/nginx/nginx.conf
     sed -i "s/client_max_body_size .*/client_max_body_size $NGINX_MAX_UPLOAD_SIZE;/g" /etc/nginx/nginx.conf
     sed -i "s/proxy_buffering .*/proxy_buffering $NGINX_PROXY_BUFFERING;/g" /etc/nginx/zulip-include/proxy_longpolling
     echo "Nginx configuration succeeded."
